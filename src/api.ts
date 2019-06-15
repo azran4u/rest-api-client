@@ -1,6 +1,4 @@
-import axios, {
-    AxiosRequestConfig,
-  } from 'axios';
+import * as axios from 'axios';
 import * as retry from 'retry-axios';
 
 function fetchAPOD(): Promise<any> {
@@ -21,11 +19,8 @@ function fetchAPOD(): Promise<any> {
             retry: 2,
         },
     };
-
-    const axiosInstance = axios.create(config);
-
+    const axiosInstance = axios.default.create(config);
     retry.attach(axiosInstance);
-
     return axiosInstance.request(config);
 }
 
