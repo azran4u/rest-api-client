@@ -1,7 +1,10 @@
-import * as axios from 'axios';
+import axios, {
+    AxiosRequestConfig,
+  } from 'axios';
+import * as retry from 'retry-axios';
 
 function fetchAPOD(): Promise<any> {
-    const config: axios.AxiosRequestConfig = {
+    const config: retry.RaxConfig = {
         url: '/planetary/apod',
         // tslint:disable-next-line:object-literal-sort-keys
         method: 'get',
@@ -14,9 +17,16 @@ function fetchAPOD(): Promise<any> {
         maxContentLength: 20000,
         validateStatus: (status: number) => status >= 200 && status < 300,
         maxRedirects: 5,
+        raxConfig: {
+            retry: 2,
+        },
     };
 
-    return axios.default(config);
+    const axiosInstance = axios.create(config);
+
+    retry.attach(axiosInstance);
+
+    return axiosInstance.request(config);
 }
 
 export {
