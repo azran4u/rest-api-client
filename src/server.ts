@@ -9,7 +9,6 @@ async function handleRequestAPOD() {
     console.log(response.headers);
     console.log(response.config);
   };
-
   const handleError = (error: axios.AxiosError) => {
     if (error.response) {
       console.log(error.response.data);
@@ -27,4 +26,7 @@ async function handleRequestAPOD() {
   console.log('who is first?');
 }
 
-handleRequestAPOD();
+setInterval(
+  handleRequestAPOD,
+  1000,
+);
