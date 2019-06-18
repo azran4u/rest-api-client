@@ -1,5 +1,6 @@
 import * as axios from 'axios';
 import * as api from './api';
+import {RedisCache} from './redis';
 
 async function handleRequestAPOD() {
   const handleResponse = (response: axios.AxiosResponse) => {
@@ -22,11 +23,26 @@ async function handleRequestAPOD() {
   await api.fetchAPOD()
     .then(handleResponse)
     .catch(handleError);
-
-  console.log('who is first?');
 }
 
-setInterval(
-  handleRequestAPOD,
-  1000,
-);
+// setInterval(
+//   handleRequestAPOD,
+//   100000,
+// );
+
+const redis = new RedisCache();
+redis.write('myhash', ['f1', 'hello', 'f2', 'world'])
+.then((result: number) => {
+  console.log(result);
+})
+.catch((error: number) => {
+  console.log(error);
+});
+
+redis.read('myhash', 'f1')
+.then((result: any) => {
+  console.log(result);
+})
+.catch((error: any) => {
+  console.log(error);
+});

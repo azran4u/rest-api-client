@@ -1,7 +1,7 @@
 import * as axios from 'axios';
 import * as retry from 'retry-axios';
 
-function fetchAPOD(): Promise<any> {
+export function fetchAPOD(): Promise<any> {
     const config: retry.RaxConfig = {
         url: '/planetary/apod',
         // tslint:disable-next-line:object-literal-sort-keys
@@ -23,7 +23,3 @@ function fetchAPOD(): Promise<any> {
     retry.attach(axiosInstance);
     return axiosInstance.request(config);
 }
-
-export {
-    fetchAPOD,
-};
