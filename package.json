@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@types/ioredis": "^4.0.12",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "ioredis": "^4.10.0",
     "retry-axios": "^1.0.1"
   }
